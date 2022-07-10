@@ -18,6 +18,12 @@
     padding-left: 10px;
 }
 
+.view-scores:hover {
+    color: purple;
+    transition: 0.3s;
+    cursor: grab;
+}
+
 .time-tracker {
     display: block;
     color: gray;
@@ -37,12 +43,41 @@
 }
 
 .quiz-container {
-    display: block;
-    align-items: center;
+    justify-content: center;
+    align-items: left;
     margin-left: 30%;
     margin-right: 30%;
     margin-top: 10%;
-    text-align: center;
+    text-align: left;
+}
+
+.quiz-container__answers {
+    display: block;
+    color: white;
+}
+
+.quiz-container__answers * {
+    color: white;
+    background-color: purple;
+    width: fit-content;
+    border-radius: 3px;
+    border-style: none;
+    text-align: left;
+    padding: .5%;
+    margin-bottom: 3px;
+}
+
+.quiz-container__answers *:hover {
+    background-color: rgb(184, 151, 215);
+    transition: .3s;
+    cursor: grab;
+}
+
+.quiz-container__result {
+    color: gray;
+    font-style: italic;
+    align-items: center;
+    margin-left: 7%;
 }
 
 .intro-box {
@@ -61,11 +96,23 @@
     border-style: none;
 }
 
+.start-quiz_button:hover {
+    background-color: rgb(184, 151, 215);
+    transition: .3s;
+    cursor: grab;
+}
+
 .score-container__button {
     color: white;
     background-color: purple;
     border-radius: 3px;
     border-style: none;
+}
+
+.score-container__button:hover {
+    background-color: rgb(184, 151, 215);
+    transition: .3s;
+    cursor: grab;
 }
 
 .score-container {
@@ -76,5 +123,42 @@
     margin-top: 10%;
     text-align: center;
 }
+
+.highscore-container {
+    display: none;
+    align-items: center;
+    margin-left: 30%;
+    margin-right: 30%;
+    margin-top: 10%;
+    text-align: center;
+}
+
+.highscore-container__back {
+    color: white;
+    background-color: purple;
+    border-radius: 3px;
+    border-style: none;
+}
+
+.highscore-container__back:hover {
+    background-color: rgb(184, 151, 215);
+    transition: .3s;
+    cursor: grab;
+}
+
+.highscore-container__clearscores {
+    color: white;
+    background-color: purple;
+    border-radius: 3px;
+    border-style: none;
+}
+
+.highscore-container__clearscores:hover {
+    background-color: rgb(184, 151, 215);
+    transition: .3s;
+    cursor: grab;
+}
+
+
 
 /*todo: style/format quiz and hover feature for buttons
