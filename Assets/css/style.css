@@ -27,6 +27,15 @@
     padding-right: 20px;
 }
 
+.intro-container {
+    display: block;
+    align-items: center;
+    margin-left: 30%;
+    margin-right: 30%;
+    margin-top: 10%;
+    text-align: center;
+}
+
 .quiz-container {
     display: block;
     align-items: center;
@@ -36,12 +45,12 @@
     text-align: center;
 }
 
-.title-box {
+.intro-box {
     font-weight: bold;
     font-size: 150%;
 }
 
-.title-box__text {
+.intro-box__text {
     color: gray;
 }
 
@@ -52,3 +61,20 @@
     border-style: none;
 }
 
+.score-container__button {
+    color: white;
+    background-color: purple;
+    border-radius: 3px;
+    border-style: none;
+}
+
+.score-container {
+    display: none;
+    align-items: center;
+    margin-left: 30%;
+    margin-right: 30%;
+    margin-top: 10%;
+    text-align: center;
+}
+
+/*todo: style/format quiz and hover feature for buttons

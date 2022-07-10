@@ -9,16 +9,32 @@
     <body>
         <header class="header-view">
             <h1 class="view-scores">View High Scores</h1>
-            <h1 class="time-tracker">Time: <span class="timer-tracker__countdown">10</span></h1>
+            <h1 class="time-tracker">Time: <span class="timer-tracker__countdown">60</span></h1>
         </header>
         <main>
-            <div class="quiz-container">
-                <h3 class="title-box">Coding Quiz Challenge</h3>
-                <p class="title-box__text">Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by 10 seconds!</p>
-                <h3 class="quiz-container__title"></h3>
-                <h4 class="quiz-container__question"></h4>
-                <ul class="quiz-container__answers"></ul>
+            <div class="intro-container">
+                <h3 class="intro-box">Coding Quiz Challenge</h3>
+                <p class="intro-box__text">Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by 10 seconds!</p>
+                <!-- <input> -->
                 <button class="start-quiz_button">Start Quiz</button>
+            </div>
+            <div class="quiz-container">
+                <h3 class="quiz-container__question"></h3>
+                <ol class="quiz-container__answers"></ol>
+                    <!-- <li class="quiz__answer1"></li>
+                    <li class="quiz__answer2"></li>
+                    <li class="quiz__answer3"></li>
+                    <li class="quiz__answer4"></li> -->
+                <h4 class="quiz-container__result"></h4>
+            </div>
+            <div class="score-container">
+                <h3 class="score-container__header">All done!</h3>
+                <p class="score-container__text">Your score is <span class="score-container__score"></span></p>
+                <form>
+                    <label class="score-container__label">Enter initials</label>
+                    <input type="text" class="score-container__input">
+                    <button class="score-container__button" type="button">Submit</button>
+                </form>
             </div>
         </main>
         <script src="./Assets/js/script.js" async defer></script>
