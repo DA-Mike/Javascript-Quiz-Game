@@ -96,16 +96,11 @@ function freezePane() {
 
 function clearPane() {
     console.log("clearPane() called");
-    // quizContainerEL.setAttribute("style", "display:none");
     quizContainerQuestionEl.textContent = '';
-    // for (i = 0; i < quizContainerEL.children.length; i++) {
-    //     quizContainerAnswersEl.children[0].remove();
-    // }
     while (quizContainerAnswersEl.firstChild) {
     quizContainerAnswersEl.removeChild(quizContainerAnswersEl.firstChild);
     }
     quizContainerResultEl.textContent = '';
-    // quizContainerEL.remove();
     if (timerCount > 0) {
         console.log("dQ called by clearPane");
         displayQuestion();
@@ -116,23 +111,18 @@ function correctAnswer() {
     quizContainerResultEl.textContent = "Correct!";
     scoreCounter++;
     console.log("scoreCounter: ", scoreCounter);
-    // isCorrect = true;
     setWins();
     freezePane();
-    // displayQuestion();
 }
 
 function incorrectAnswer() {
     quizContainerResultEl.textContent = "Incorrect!";
     console.log("incorrectAnswer() called");
-    // incorrect = true;
     freezePane();
-    // displayQuestion();
 }
 
 // Updates win count on screen and sets win count to client storage
 function setWins() {
-    // win.textContent = winCounter;
     console.log("setWins() called");
     localStorage.setItem("scoreCount", scoreCounter);
   }
@@ -147,13 +137,10 @@ function isClicked() {
 function checkAnswer() {
     console.log("checkAnswer() called");
     if (selectedAnswer == questionAnswer) {
-        // console.log('checkAnswer() works!');
         isWin = true;
         isCorrect = true;
-        // correctAnswer();
     } else {
         incorrect = true;
-        // incorrectAnswer();
     }
  }
 
@@ -161,7 +148,6 @@ function loseGame() {
     console.log("loseGame() called");
     clearPane();
     console.log("clearPane called by loseGame");
-    // quizContainerResultEl.textContent = '';
     qCount = 0;
     introEl.textContent = "You lost!";
     introTextEl.textContent = "Would you like to play again?";
@@ -172,17 +158,10 @@ function loseGame() {
 var qCount = 0;
 
 function displayQuestion() {
-    // timerCount = 60;
     quizContainerEL.setAttribute("style", "display:block");
-    
-    // console.log("dQ object: ", Object.keys(questionsArr[0]).length);
-    
-    // for (x = 0; x < questionsArr.length; x++){
-        
     if (qCount < questionsArr.length) {
         quizContainerQuestionEl.textContent = questionsArr[qCount].question;
         for (i = 0; i < Object.keys(questionsArr[qCount]).length; i++) {
-            // console.log("i ", i);
             var answerEl = document.createElement("li");
             if (i == 1){
                 quizContainerAnswersEl.append(answerEl);
@@ -209,27 +188,20 @@ function displayQuestion() {
     } else {
         highScore();
     }
-    // }
     qCount++;
     console.log("displayQuestion() called");
 }
 
 function highScore(event) {
-    // event.preventDefault();
     console.log("highScore() called");
     quizContainerEL.setAttribute("style", "display:none");
     introContainerEl.setAttribute("style", "display:none");
     scoreContainerScore.textContent = scoreCounter;
     scoreContainer.setAttribute("style", "display:block");
     scoreSubmit.addEventListener("click", submitScore);
-    // initialsVar = initialsInput;
-    // console.log("initialsInput: ", initialsInput);
-    // event.preventDefault();
 }
 
-//todo: add/update scoreobj in local storage
 function submitScore(event) {
-    // event.preventDefault();
     console.log("submitScore() called");
     var initialsInput = document.querySelector(".score-container__input").value;
     var scoreObj = {initials:"", score:""};
@@ -288,3 +260,6 @@ function intro(event) {
 
 submitButton.addEventListener("click", intro);
 viewScores.addEventListener("click", viewScore);
+
+//TODO: figure out bug when navigating from highscores to intro
+//TODO: figure out why local storage is clearing after refresh
