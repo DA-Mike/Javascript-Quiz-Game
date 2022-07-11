@@ -1,3 +1,4 @@
+// Question object
 var questionsArr = [ 
     {question: "A very useful tool used during development and debugging for printing content to the debugger.",
     a: "JavaScript",
@@ -18,12 +19,12 @@ var questionsArr = [
     d: "square brackets",
     answer: "A"}
 ]
+// Variables... LOTS of variables...
 var highScores = [];
 var viewScores = document.querySelector(".view-scores");
 var scoreContainer = document.querySelector(".score-container");
 var scoreContainerScore = document.querySelector(".score-container__score");
 var scoreSubmit = document.querySelector(".score-container__button");
-// var initialsInput = document.querySelector(".score-container__input").value;
 var initialsVar = '';
 var timerEl = document.querySelector(".timer-tracker__countdown");
 var introContainerEl = document.querySelector(".intro-container");
@@ -50,103 +51,90 @@ var isCorrect = false;
 var incorrect = false;
 var selectedAnswer;
 var questionAnswer;
-
 var scoreObj = {initials:"", score:""};
+var qCount = 0;
 
 
-// The setTimer function starts and stops the timer and triggers winGame() and loseGame()
+// The setTimer function starts and stops the timer and triggers multiple functions
 function startTimer() {
     // Sets timer
     timer = setInterval(function() {
       timerCount--;
       timerEl.textContent = timerCount;
+      // Checks time, question count, and routes app to correctAnswer, incorrectAnswer, loseGame, or just stops the timer
       if (timerCount > 0 && qCount <= questionsArr.length) {
-        // Tests if win condition is met
         if (isCorrect && timerCount > 0) {
-          // Clears interval and stops timer
-        //   clearInterval(timer);
           isCorrect = false;
           timerCount = timerCount + 15;
-          console.log("isCorrect: ", isCorrect);
           correctAnswer();
         } else if (incorrect && timerCount > 0 && qCount <= questionsArr.length) {
           incorrect = false;
           timerCount = timerCount - 5;
-          console.log("incorrect: ", incorrect);
           incorrectAnswer();
         }
       }
       // Tests if time has run out
-      if (timerCount === 0) {
-        // Clears interval
+      if (timerCount <= 0) {
         clearInterval(timer);
         loseGame();
       } else if (timerCount > 0 && qCount > questionsArr.length) {
-        console.log("timerCount: ", timerCount, qCount);
         clearInterval(timer);
       }
     }, 1000);
   }
 
+// Removes event listener for answer choices after an answer is selected
 function freezePane() {
-    // quizContainerAnswersEL.removeEventListener;
     for (i = 0; i < quizContainerAnswersEl.children.length; i++) {
-        console.log("freezePane() called");
         quizContainerAnswersEl.children[i].removeEventListener("click", isClicked, true);
     }
     setTimeout(() => {clearPane();}, 3000);
 }
 
+// Clears question container and calls new question
 function clearPane() {
-    console.log("clearPane() called");
     quizContainerQuestionEl.textContent = '';
     while (quizContainerAnswersEl.firstChild) {
     quizContainerAnswersEl.removeChild(quizContainerAnswersEl.firstChild);
     }
     quizContainerResultEl.textContent = '';
     if (timerCount > 0) {
-        console.log("dQ called by clearPane");
         displayQuestion();
     }
 }
 
+// Called if answer is correct
 function correctAnswer() {
     quizContainerResultEl.textContent = "Correct!";
     scoreCounter++;
-    console.log("scoreCounter: ", scoreCounter);
-    // setWins();
     freezePane();
 }
 
+// Called if answer is incorrect
 function incorrectAnswer() {
     quizContainerResultEl.textContent = "Incorrect!";
-    console.log("incorrectAnswer() called");
     freezePane();
 }
 
+// Called if answer is clicked; calls checkAnswer()
 function isClicked() {
-    console.log("isClicked() called");
     selectedAnswer = (this).textContent[0];
-    console.log("selected answer: ", selectedAnswer);
     checkAnswer();
 }
 
+// Checks if answer is correct or incorrect
 function checkAnswer() {
-    console.log("checkAnswer() called");
     if (selectedAnswer == questionAnswer) {
-        isWin = true;
         isCorrect = true;
     } else {
         incorrect = true;
     }
  }
 
+//Called if timer runs out; player loses game. Utilizes intro-container
 function loseGame() {
-    console.log("loseGame() called");
     clearPane();
-    console.log("clearPane called by loseGame");
     qCount = 0;
-    // scoreCounter = 0;
     introEl.textContent = "You lost!";
     introTextEl.textContent = "Would you like to play again?";
     submitButton.textContent = "Yes";
@@ -162,8 +150,8 @@ function loseGame() {
     introContainerEl.setAttribute("style", "display:block");
 }
 
-var qCount = 0;
 
+// Displays question; calls a question object from the question object array and appends it to the question container
 function displayQuestion() {
     quizContainerEL.setAttribute("style", "display:block");
     if (qCount < questionsArr.length) {
@@ -188,19 +176,16 @@ function displayQuestion() {
                 quizContainerAnswersEl.children[3].addEventListener('click', isClicked, true);
             } else if (i==5) {
                 questionAnswer = questionsArr[qCount].answer;
-                console.log("questionAnswer: ", questionAnswer);
             }
-            
         }
     } else {
         highScore();
     }
     qCount++;
-    console.log("displayQuestion() called");
 }
 
+// Displays scoreContainer, calls submitScore when button is clicked
 function highScore(event) {
-    console.log("highScore() called");
     quizContainerEL.setAttribute("style", "display:none");
     introContainerEl.setAttribute("style", "display:none");
     scoreContainerScore.textContent = scoreCounter;
@@ -208,13 +193,12 @@ function highScore(event) {
     scoreSubmit.addEventListener("click", submitScore);
 }
 
+// Submits score; parses local storage, appends to highScores array, new score appended, then stringified back to localstorage
 function submitScore(event) {
-    console.log("submitScore() called");
     var initialsInput = document.querySelector(".score-container__input").value;
     scoreObj.initials = initialsInput;
     scoreObj.score = scoreCounter;
     var localCheck = JSON.parse(localStorage.getItem("highScores"));
-    console.log("localCheck: ", localCheck);
     if (localCheck == null){
         highScores.push(scoreObj);
     } else {
@@ -223,50 +207,51 @@ function submitScore(event) {
     }
     localStorage.setItem("highScores", JSON.stringify(highScores));
     viewScore();
-    console.log("highscores: ", highScores);
 }
 
+// Displays scores to player; calls on localstorage and appends to DOM
 function viewScore() {
-    console.log("viewScore() called");
     qCount = questionsArr.length + 1;
     quizContainerEL.setAttribute("style", "display:none");
     scoreContainer.setAttribute("style", "display:none");
     introContainerEl.setAttribute("style", "display:none");
     highScoresContainer.setAttribute("style", "display:block");
     var scoreVal = JSON.parse(localStorage.getItem("highScores"));
-    console.log("scoreVal: ", scoreVal);
     var scoreListLength = highScores.length - 1;
-    if (highScoresList.children.length === 0) {
-        for (i = 0; i < scoreVal.length; i++) {
-            var scoreEL = document.createElement("li");
-            scoreEL.textContent = (i + 1) + ")  " + scoreVal[i].initials + " - " + scoreVal[i].score;
-            highScoresList.append(scoreEL);
+    if (scoreVal != null) {
+        if (highScoresList.children.length === 0) {
+            for (i = 0; i < scoreVal.length; i++) {
+                var scoreEL = document.createElement("li");
+                scoreEL.textContent = (i + 1) + ")  " + scoreVal[i].initials + " - " + scoreVal[i].score;
+                highScoresList.append(scoreEL);
+            }
+        } else if (highScores.length > highScoresList.children.length && highScoresList.children.length > 0) {
+                var scoreEL = document.createElement("li");
+                scoreEL.textContent = (highScoresList.children.length + 1) + ") " + scoreVal[scoreListLength].initials + " - " + scoreVal[scoreListLength].score;
+                highScoresList.append(scoreEL);
+        } else {
+            window.alert("All scores up to date");
         }
-    } else if (highScores.length > highScoresList.children.length && highScoresList.children.length > 0) {
-            var scoreEL = document.createElement("li");
-            scoreEL.textContent = (highScoresList.children.length + 1) + ") " + scoreVal[scoreListLength].initials + " - " + scoreVal[scoreListLength].score;
-            highScoresList.append(scoreEL);
-    } else {
-        window.alert("All scores up to date");
     }
     highScoresList.setAttribute("style", "list-style-type:none");
     highScoreBack.addEventListener("click", init);
     highScoreClear.addEventListener("click", clearScores);
 }
 
+// Clears localstorage and highScores object array; removes it from DOM
 function clearScores() {
-    console.log("clearScores() called");
     localStorage.clear("highScores");
+    highScores = [];
     while (highScoresList.firstChild) {
         highScoresList.removeChild(highScoresList.firstChild);
         }
         highScoresList.textContent = '';
 }
 
+// Re-initializes game again from intro-container
 function init() {
     qCount = 0;
     scoreCounter = 0;
-    console.log("init() called");
     introEl.textContent = "Coding Quiz Challenge"
     introTextEl.textContent = "Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by 10 seconds!";
     submitButton.textContent = "Start Quiz";
@@ -275,22 +260,20 @@ function init() {
     }
     highScoresContainer.setAttribute("style", "display:none");
     introContainerEl.setAttribute("style", "display:block");
-    // submitButton.addEventListener("click", intro);
 }
 
+// Clears intro-container and starts game
 function intro(event) {
     event.preventDefault();
     introContainerEl.setAttribute("style", "display:none");
     timerCount = 10;
     clearPane();
-    // displayQuestion();
     startTimer();
-    console.log("intro() called");
-    return;
 }
 
+// Starts game
 submitButton.addEventListener("click", intro);
+
+// Views highscores from header element
 viewScores.addEventListener("click", viewScore);
 
-//TODO: figure out bug when navigating from highscores to intro
-//TODO: figure out why local storage is clearing after refresh

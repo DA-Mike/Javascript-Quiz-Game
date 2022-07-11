@@ -1,5 +1,9 @@
-/*TODO: style highscore screen*/
+/* element styles */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
 
+/* class styles */
 .header-view {
     display: grid;
     grid-template-columns: 50% 50%;
@@ -44,6 +48,15 @@
     text-align: center;
 }
 
+.intro-box {
+    font-weight: bold;
+    font-size: 150%;
+}
+
+.intro-box__text {
+    color: gray;
+}
+
 .quiz-container {
     justify-content: center;
     align-items: left;
@@ -80,15 +93,6 @@
     font-style: italic;
     align-items: center;
     margin-left: 7%;
-}
-
-.intro-box {
-    font-weight: bold;
-    font-size: 150%;
-}
-
-.intro-box__text {
-    color: gray;
 }
 
 .start-quiz_button {
@@ -163,10 +167,41 @@
 
 .highscore-container__scoreList {
     list-style-type: none;
-    text-align: left;
-    margin-left: 40%;
+    text-align: center;
+    margin-left: -7%;
 }
 
-
-
-/*todo: style/format quiz and hover feature for buttons
+/* viewport modifiers */
+@media screen and (max-width: 1183px) {
+    main {
+      flex-direction: column;
+    }
+  
+    .word-guess,
+    .results {
+      width: 90vw;
+    }
+  
+    section {
+      background-color: white;
+      margin: 20px auto;
+      width: 92vw;
+    }
+  }
+  
+  @media screen and (max-width: 504px) {
+    .large-font {
+      font-size: 2em;
+    }
+  
+    .reset-button {
+      font-size: 12px;
+      width: 20ox;
+      
+    }
+  
+    .timer {
+      height: 200px;
+    }
+   
+  }
