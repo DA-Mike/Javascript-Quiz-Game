@@ -100,6 +100,7 @@ body {
     background-color: purple;
     border-radius: 3px;
     border-style: none;
+    padding: 3px;
 }
 
 .start-quiz_button:hover {
@@ -113,6 +114,7 @@ body {
     background-color: purple;
     border-radius: 3px;
     border-style: none;
+    padding: 3px;
 }
 
 .score-container__button:hover {
@@ -144,6 +146,7 @@ body {
     background-color: purple;
     border-radius: 3px;
     border-style: none;
+    padding: 3px;
 }
 
 .highscore-container__back:hover {
@@ -157,6 +160,7 @@ body {
     background-color: purple;
     border-radius: 3px;
     border-style: none;
+    padding: 3px;
 }
 
 .highscore-container__clearscores:hover {
@@ -170,38 +174,3 @@ body {
     text-align: center;
     margin-left: -7%;
 }
-
-/* viewport modifiers */
-@media screen and (max-width: 1183px) {
-    main {
-      flex-direction: column;
-    }
-  
-    .word-guess,
-    .results {
-      width: 90vw;
-    }
-  
-    section {
-      background-color: white;
-      margin: 20px auto;
-      width: 92vw;
-    }
-  }
-  
-  @media screen and (max-width: 504px) {
-    .large-font {
-      font-size: 2em;
-    }
-  
-    .reset-button {
-      font-size: 12px;
-      width: 20ox;
-      
-    }
-  
-    .timer {
-      height: 200px;
-    }
-   
-  }

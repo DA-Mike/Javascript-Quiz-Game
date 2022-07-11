@@ -63,17 +63,19 @@ function startTimer() {
       timerEl.textContent = timerCount;
       // Checks time, question count, and routes app to correctAnswer, incorrectAnswer, loseGame, or just stops the timer
       if (timerCount > 0 && qCount <= questionsArr.length) {
+        // Adds net 10 seconds to timer
         if (isCorrect && timerCount > 0) {
           isCorrect = false;
-          timerCount = timerCount + 15;
+          timerCount = timerCount + 13;
           correctAnswer();
+        // Subtracts net 7 seconds from timer
         } else if (incorrect && timerCount > 0 && qCount <= questionsArr.length) {
           incorrect = false;
-          timerCount = timerCount - 5;
+          timerCount = timerCount - 7;
           incorrectAnswer();
         }
       }
-      // Tests if time has run out
+      // Tests if time has run out or if player has navigated away from questions container
       if (timerCount <= 0) {
         clearInterval(timer);
         loseGame();
@@ -266,7 +268,7 @@ function init() {
 function intro(event) {
     event.preventDefault();
     introContainerEl.setAttribute("style", "display:none");
-    timerCount = 10;
+    timerCount = 20;
     clearPane();
     startTimer();
 }
