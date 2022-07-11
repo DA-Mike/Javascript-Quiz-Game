@@ -30,7 +30,7 @@ var introContainerEl = document.querySelector(".intro-container");
 var introEl = document.querySelector(".intro-box");
 var introTextEl = document.querySelector(".intro-box__text");
 var submitButton = document.querySelector(".start-quiz_button");
-var timerCount = 60;
+var timerCount = 10;
 var timer;
 var quizContainerEL = document.querySelector(".quiz-container");
 var quizContainerQuestionEl = document.querySelector(".quiz-container__question");
@@ -50,6 +50,8 @@ var isCorrect = false;
 var incorrect = false;
 var selectedAnswer;
 var questionAnswer;
+
+var scoreObj = {initials:"", score:""};
 
 
 // The setTimer function starts and stops the timer and triggers winGame() and loseGame()
@@ -72,8 +74,6 @@ function startTimer() {
           timerCount = timerCount - 5;
           console.log("incorrect: ", incorrect);
           incorrectAnswer();
-        } else if (timerCount > 0 && qCount > questionsArr.length) {
-            clearInterval(timer);
         }
       }
       // Tests if time has run out
@@ -81,6 +81,9 @@ function startTimer() {
         // Clears interval
         clearInterval(timer);
         loseGame();
+      } else if (timerCount > 0 && qCount > questionsArr.length) {
+        console.log("timerCount: ", timerCount, qCount);
+        clearInterval(timer);
       }
     }, 1000);
   }
@@ -91,7 +94,7 @@ function freezePane() {
         console.log("freezePane() called");
         quizContainerAnswersEl.children[i].removeEventListener("click", isClicked, true);
     }
-    setTimeout(() => {clearPane();}, 5000);
+    setTimeout(() => {clearPane();}, 3000);
 }
 
 function clearPane() {
@@ -111,7 +114,7 @@ function correctAnswer() {
     quizContainerResultEl.textContent = "Correct!";
     scoreCounter++;
     console.log("scoreCounter: ", scoreCounter);
-    setWins();
+    // setWins();
     freezePane();
 }
 
@@ -120,12 +123,6 @@ function incorrectAnswer() {
     console.log("incorrectAnswer() called");
     freezePane();
 }
-
-// Updates win count on screen and sets win count to client storage
-function setWins() {
-    console.log("setWins() called");
-    localStorage.setItem("scoreCount", scoreCounter);
-  }
 
 function isClicked() {
     console.log("isClicked() called");
@@ -149,9 +146,19 @@ function loseGame() {
     clearPane();
     console.log("clearPane called by loseGame");
     qCount = 0;
+    // scoreCounter = 0;
     introEl.textContent = "You lost!";
     introTextEl.textContent = "Would you like to play again?";
     submitButton.textContent = "Yes";
+    if (introContainerEl.children.length < 4) {
+        playAgain = document.createElement("button");
+        playAgain.setAttribute("type","button");
+        playAgain.setAttribute("style", "margin-left:5px");
+        playAgain.textContent = "Enter Score";
+        playAgain.className = "start-quiz_button";
+        playAgain.addEventListener("click", highScore);
+        introContainerEl.append(playAgain);
+    }
     introContainerEl.setAttribute("style", "display:block");
 }
 
@@ -204,10 +211,16 @@ function highScore(event) {
 function submitScore(event) {
     console.log("submitScore() called");
     var initialsInput = document.querySelector(".score-container__input").value;
-    var scoreObj = {initials:"", score:""};
     scoreObj.initials = initialsInput;
     scoreObj.score = scoreCounter;
-    highScores.push(scoreObj);
+    var localCheck = JSON.parse(localStorage.getItem("highScores"));
+    console.log("localCheck: ", localCheck);
+    if (localCheck == null){
+        highScores.push(scoreObj);
+    } else {
+        highScores = JSON.parse(localStorage.getItem("highScores"));
+        highScores.push(scoreObj);
+    }
     localStorage.setItem("highScores", JSON.stringify(highScores));
     viewScore();
     console.log("highscores: ", highScores);
@@ -221,11 +234,22 @@ function viewScore() {
     introContainerEl.setAttribute("style", "display:none");
     highScoresContainer.setAttribute("style", "display:block");
     var scoreVal = JSON.parse(localStorage.getItem("highScores"));
-    for (i = 0; i < scoreVal.length; i++) {
-        var scoreEL = document.createElement("li");
-        scoreEL.textContent = scoreVal[i].initials + " - " + scoreVal[i].score;
-        highScoresList.append(scoreEL);
+    console.log("scoreVal: ", scoreVal);
+    var scoreListLength = highScores.length - 1;
+    if (highScoresList.children.length === 0) {
+        for (i = 0; i < scoreVal.length; i++) {
+            var scoreEL = document.createElement("li");
+            scoreEL.textContent = (i + 1) + ")  " + scoreVal[i].initials + " - " + scoreVal[i].score;
+            highScoresList.append(scoreEL);
+        }
+    } else if (highScores.length > highScoresList.children.length && highScoresList.children.length > 0) {
+            var scoreEL = document.createElement("li");
+            scoreEL.textContent = (highScoresList.children.length + 1) + ") " + scoreVal[scoreListLength].initials + " - " + scoreVal[scoreListLength].score;
+            highScoresList.append(scoreEL);
+    } else {
+        window.alert("All scores up to date");
     }
+    highScoresList.setAttribute("style", "list-style-type:none");
     highScoreBack.addEventListener("click", init);
     highScoreClear.addEventListener("click", clearScores);
 }
@@ -241,18 +265,25 @@ function clearScores() {
 
 function init() {
     qCount = 0;
+    scoreCounter = 0;
     console.log("init() called");
+    introEl.textContent = "Coding Quiz Challenge"
+    introTextEl.textContent = "Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by 10 seconds!";
+    submitButton.textContent = "Start Quiz";
+    if (introContainerEl.children.length > 3) {
+        introContainerEl.removeChild(introContainerEl.lastChild);
+    }
     highScoresContainer.setAttribute("style", "display:none");
     introContainerEl.setAttribute("style", "display:block");
-    submitButton.addEventListener("click", intro);
+    // submitButton.addEventListener("click", intro);
 }
 
 function intro(event) {
     event.preventDefault();
     introContainerEl.setAttribute("style", "display:none");
-    timerCount = 60;
-    // clearPane();
-    displayQuestion();
+    timerCount = 10;
+    clearPane();
+    // displayQuestion();
     startTimer();
     console.log("intro() called");
     return;

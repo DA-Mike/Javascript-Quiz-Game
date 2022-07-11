@@ -161,6 +161,12 @@
     cursor: grab;
 }
 
+.highscore-container__scoreList {
+    list-style-type: none;
+    text-align: left;
+    margin-left: 40%;
+}
+
 
 
 /*todo: style/format quiz and hover feature for buttons
