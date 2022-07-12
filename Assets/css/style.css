@@ -1,3 +1,11 @@
+/* color vars */
+:root {
+    --purple: purple;
+    --gray: gray;
+    --white: white;
+    --lightpurple: rgb(184, 151, 215);
+}
+
 /* element styles */
 body {
     font-family: Arial, Helvetica, sans-serif;
@@ -8,7 +16,7 @@ body {
     display: grid;
     grid-template-columns: 50% 50%;
     justify-content: space-between;
-    color: gray;
+    color: var(--gray);
     width: 100%;
     height: 20px;
     font-size: small;
@@ -16,7 +24,7 @@ body {
 
 .view-scores {
     display: block;
-    color: gray;
+    color: var(--gray);
     font-size: small;
     position: relative;
     text-align: left;
@@ -24,14 +32,14 @@ body {
 }
 
 .view-scores:hover {
-    color: purple;
+    color: var(--purple);
     transition: 0.3s;
     cursor: grab;
 }
 
 .time-tracker {
     display: block;
-    color: gray;
+    color: var(--gray);
     font-size: small;
     position: relative;
     text-align: right;
@@ -53,7 +61,7 @@ body {
 }
 
 .intro-box__text {
-    color: gray;
+    color: var(--gray);
 }
 
 .quiz-container {
@@ -67,12 +75,12 @@ body {
 
 .quiz-container__answers {
     display: block;
-    color: white;
+    color: var(--white);
 }
 
 .quiz-container__answers * {
-    color: white;
-    background-color: purple;
+    color: var(--white);
+    background-color: var(--purple);
     width: fit-content;
     border-radius: 3px;
     border-style: none;
@@ -82,42 +90,42 @@ body {
 }
 
 .quiz-container__answers *:hover {
-    background-color: rgb(184, 151, 215);
+    background-color: var(--lightpurple);
     transition: .3s;
     cursor: grab;
 }
 
 .quiz-container__result {
-    color: gray;
+    color: var(--gray);
     font-style: italic;
     align-items: center;
     margin-left: 7%;
 }
 
 .start-quiz_button {
-    color: white;
-    background-color: purple;
+    color: var(--white);
+    background-color: var(--purple);
     border-radius: 3px;
     border-style: none;
     padding: 3px;
 }
 
 .start-quiz_button:hover {
-    background-color: rgb(184, 151, 215);
+    background-color: var(--lightpurple);
     transition: .3s;
     cursor: grab;
 }
 
 .score-container__button {
-    color: white;
-    background-color: purple;
+    color: var(--white);
+    background-color: var(--purple);
     border-radius: 3px;
     border-style: none;
     padding: 3px;
 }
 
 .score-container__button:hover {
-    background-color: rgb(184, 151, 215);
+    background-color: var(--lightpurple);
     transition: .3s;
     cursor: grab;
 }
@@ -141,29 +149,29 @@ body {
 }
 
 .highscore-container__back {
-    color: white;
-    background-color: purple;
+    color: var(--white);
+    background-color: var(--purple);
     border-radius: 3px;
     border-style: none;
     padding: 3px;
 }
 
 .highscore-container__back:hover {
-    background-color: rgb(184, 151, 215);
+    background-color: var(--lightpurple);
     transition: .3s;
     cursor: grab;
 }
 
 .highscore-container__clearscores {
-    color: white;
-    background-color: purple;
+    color: var(--white);
+    background-color: var(--purple);
     border-radius: 3px;
     border-style: none;
     padding: 3px;
 }
 
 .highscore-container__clearscores:hover {
-    background-color: rgb(184, 151, 215);
+    background-color: var(--lightpurple);
     transition: .3s;
     cursor: grab;
 }

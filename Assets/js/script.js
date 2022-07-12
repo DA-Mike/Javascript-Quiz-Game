@@ -114,7 +114,7 @@ function correctAnswer() {
 
 // Called if answer is incorrect
 function incorrectAnswer() {
-    quizContainerResultEl.textContent = "Incorrect!";
+    quizContainerResultEl.textContent = "Wrong!";
     freezePane();
 }
 
