@@ -1,7 +1,5 @@
 # JavaScript Quiz Game
 
-## UCB Bootcamp Module #4 Challenge
-
 My motivation for this project was to learn more about programming in Javascript, and it was quite the journey!
 
 This project was done to learn more about how Javascript can interact with the DOM and how to manipulate the DOM via Javascript via Web APIs.
